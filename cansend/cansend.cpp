@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <cerrno>
 
 #include <sys/neutrino.h>
 
@@ -130,7 +131,6 @@ bool ParseCanFrame(const std::string& str, can_frame& frame)
 				if(IsHexChar(values[i][0]) && ((values[i].size() == 1) || IsHexChar(values[i][1])))
 				{
 					frame.data[i] = std::stoi(values[i], 0, 16);
-					std::cout << std::dec << int(frame.data[i]) << std::endl;
 				}
 				else
 				{
@@ -161,11 +161,14 @@ int main(int argc, char **argv)
 		return -1;
 	}
 
-	int canController = open("/dev/can0", O_RDWR | O_APPEND);
+	std::string controllerName("/dev/");
+	controllerName += argv[1];
+
+	int canController = open(controllerName.c_str(), O_RDWR | O_APPEND);
 
 	if (-1 == canController)
 	{
-		std::cout << "open " << "/dev/can0" << " controller error " << std::endl;
+		std::cerr << "can not open " << controllerName << " controller, error: " << std::strerror(errno) << std::endl;
 		return -1;
 	}
 
