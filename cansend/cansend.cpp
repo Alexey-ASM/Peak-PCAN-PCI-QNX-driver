@@ -4,6 +4,7 @@
 #include <sstream>
 #include <vector>
 #include <cerrno>
+#include <cstring>
 
 #include <sys/neutrino.h>
 

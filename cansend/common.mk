@@ -13,7 +13,7 @@ USEFILE=
 EXTRA_SUFFIXES+=cxx cpp
 
 #===== EXTRA_INCVPATH - a space-separated list of directories to search for include files.
-EXTRA_INCVPATH+=$(PROJECT_ROOT)/../common/include
+EXTRA_INCVPATH+=$(PROJECT_ROOT)/../include
 
 include $(MKFILES_ROOT)/qmacros.mk
 ifndef QNX_INTERNAL

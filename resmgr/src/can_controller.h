@@ -5,13 +5,14 @@
 #include <cstdint>
 #include <thread>
 
+#include <can.h>
+
 #include "non_copyable.h"
 
 #include "chip_ports.h"
 #include "chip_mapper.h"
 
 #include "unit_cthread.h"
-#include "../common/include/can.h"
 
 #include <iostream>
 

@@ -9,6 +9,6 @@ exe candump :
 		candump.cpp
 		: 
 		<include>.
-		<include>../common/include/
+		<include>../include/
 	
         ;

@@ -6,7 +6,7 @@ QNX resource manager for PEAK-System PCAN-PCI CAN bus interface cards.
 
 This project provides a native QNX resource manager implementation for **PEAK PCAN-PCI** devices, enabling real-time CAN communication in embedded systems running **QNX Neutrino RTOS**.
 
-The CAN frame format is defined in [can.h](../common/include/can.h), based on the Linux SocketCAN specification (https://github.com/torvalds/linux/blob/master/include/uapi/linux/can.h):
+The CAN frame format is defined in [can.h](../include/can.h), based on the Linux SocketCAN specification (https://github.com/torvalds/linux/blob/master/include/uapi/linux/can.h):
 
 ```c
 /*
@@ -20,11 +20,11 @@ The CAN frame format is defined in [can.h](../common/include/can.h), based on th
 
 struct can_frame {
     canid_t can_id;   /* 32-bit CAN_ID + EFF/RTR/ERR flags */
-    __u8    len;      /* Data Length Code (0..8) */
-    __u8    __pad;    /* padding */
-    __u8    __res0;   /* reserved / padding */
-    __u8    len8_dlc; /* optional DLC for 8-byte payload length (9..15) */
-    __u8    data[CAN_MAX_DLEN] __attribute__((aligned(8)));
+    uint8_t    len;      /* Data Length Code (0..8) */
+    uint8_t    __pad;    /* padding */
+    uint8_t    __res0;   /* reserved / padding */
+    uint8_t    len8_dlc; /* optional DLC for 8-byte payload length (9..15) */
+    uint8_t    data[CAN_MAX_DLEN] __attribute__((aligned(8)));
 };
 ```
 

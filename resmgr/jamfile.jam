@@ -18,7 +18,7 @@ exe canrmd :
 		: 
 		<include>.
 		<include>src/
-		<include>../common/include/
+		<include>../include/
 		
 		
 		<linkflags>-lpci

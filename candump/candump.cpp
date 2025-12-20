@@ -369,36 +369,43 @@ int main(int argc, char *argv[]) {
         	os << SprintTimestamp << " ";
         	os << tokens[0];
 
-      		os << std::hex << std::setfill(' ') << std::setw(10) << (message.can_id & CAN_EFF_MASK);
-      		os << std::dec << std::setfill(' ') << std::setw(3) << int(message.len) << " ";
+      		os << std::hex << std::setfill(' ') << std::setw(10) << (message.can_id & CAN_EFF_MASK) << " ";
 
-      		for(int i = 0; i < 8; ++i)
+      		os << (message.can_id & CAN_EFF_FLAG ? 'E' : ' ');
+      		os << (message.can_id & CAN_RTR_FLAG ? 'R' : ' ');
+
+      		os << std::dec << std::setfill(' ') << std::setw(2) << '[' << int(message.len) << ']' << " ";
+
+      		if((message.can_id & CAN_RTR_FLAG) == 0)
       		{
-      			if(message.len <= i)
-      			{
-      				os	<< "   ";
-      			}
-      			else
-      			{
-      				os << " " << std::hex << std::setfill('0') << std::setw(2) << int(message.data[i]);
-      			}
-      		}
+				for(int i = 0; i < 8; ++i)
+				{
+					if(message.len <= i)
+					{
+						os	<< "   ";
+					}
+					else
+					{
+						os << " " << std::hex << std::setfill('0') << std::setw(2) << int(message.data[i]);
+					}
+				}
 
-      		if(asciiView)
-      		{
-      			os << "  ";
+				if(asciiView)
+				{
+					os << "  ";
 
-      			for(int i = 0; i < message.len; ++i)
-          		{
-      				if(message.data[i] > 31 && message.data[i] != 127)
-      				{
-      					os << message.data[i];
-      				}
-      				else
-      				{
-      					os << '.';
-      				}
-          		}
+					for(int i = 0; i < message.len; ++i)
+					{
+						if(message.data[i] > 31 && message.data[i] != 127)
+						{
+							os << message.data[i];
+						}
+						else
+						{
+							os << '.';
+						}
+					}
+				}
       		}
 
       		if(silent != SILENT_ON)

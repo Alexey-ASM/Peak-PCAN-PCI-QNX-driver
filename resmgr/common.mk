@@ -24,7 +24,6 @@ CXXFLAGS+=-Wc,-std=gnu++14
 LIBS+=m pci slog2
 
 #===== EXTRA_INCVPATH - a space-separated list of directories to search for include files.
-EXTRA_INCVPATH+=$(PROJECT_ROOT)/../common/include
 EXTRA_INCVPATH+=$(PROJECT_ROOT)/../include
 
 #===== EXTRA_SRCVPATH - a space-separated list of directories to search for source files.
