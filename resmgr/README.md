@@ -34,6 +34,7 @@ struct can_frame {
 - Compatible with:
   - QNX 7.0
   - QNX 7.1
+  - QNX 8.0
 - Supports multiple architectures:
   - x86_64
   - ARM
@@ -46,7 +47,7 @@ struct can_frame {
 |-------------|-------------------------|
 | QNX 7.0     | x86_64, ARM, ARM_64     |
 | QNX 7.1     | x86_64, ARM, ARM_64     |
-
+| QNX 8.0     | x86_64, ARM_64          |
 
 ## Usage
 
@@ -68,5 +69,5 @@ canrmd -d /dev/can1 -s 800
 ## Notes
 
 - Requires PEAK PCAN-PCI hardware
-- Tested on QNX 7.0 and 7.1 with x86 and ARM platforms
+- Tested on QNX 7.0, 7.1 and 8.0 with x86 platforms
 

@@ -122,13 +122,13 @@ void* CanManager::DataReceiveThread()
                                 break;
                             case DelayElement::ET_NOTIFY:
 
-                                if(SIGEV_NONE != tdqi->ocb_->notifyEvent_.ev32.sigev_notify) 
+                                if(SIGEV_NONE != tdqi->ocb_->event_.sigev_notify) 
                                 {
 
-                                    tdqi->ocb_->notifyEvent_.ev32.sigev_value.sival_int |= _NOTIFY_COND_INPUT;
+                                    tdqi->ocb_->event_.sigev_value.sival_int |= _NOTIFY_COND_INPUT;
 
-                                    MsgDeliverEvent(tdqi->rcvId_, &tdqi->ocb_->notifyEvent_.ev);
-                                    tdqi->ocb_->notifyEvent_.ev32.sigev_notify = SIGEV_NONE;
+                                    MsgDeliverEvent(tdqi->rcvId_, &tdqi->ocb_->event_);
+                                    tdqi->ocb_->event_.sigev_notify = SIGEV_NONE;
 
                                 }
                                 erase = true;
@@ -350,8 +350,12 @@ int CanManager::io_notify(resmgr_context_t *ctp, io_notify_t *msg, RESMGR_OCB_T 
         if(0 == msg->o.flags) 
         {
 
-            //push to queue for wait new data
-            ocb->notifyEvent_.ev32 = msg->i.event;
+            //push to the queue to wait for new data
+#if __QNX__ < 800
+            ocb->event32_ = msg->i.event;
+#else
+            ocb->event_ = msg->i.event;
+#endif
 
             delayedQueue_.push_back(DelayElement(DelayElement::ET_NOTIFY, ctp->rcvid, ocb));
         }
@@ -405,7 +409,8 @@ int CanManager::io_devctl(resmgr_context_t *ctp, io_devctl_t *msg, RESMGR_OCB_T 
 
     uint32_t* data;
 
-    switch(msg->i.dcmd){
+    switch(static_cast<uint32_t>(msg->i.dcmd))
+    {
     case EDCMD_SET_MASK :
         //set mask
 
@@ -446,7 +451,7 @@ IOFUNC_OCB_T* CanManager::ocb_calloc (resmgr_context_t */*ctp*/, IOFUNC_ATTR_T *
         return 0;
     }
 
-    ocb->notifyEvent_.ev32.sigev_notify = SIGEV_NONE;
+    ocb->event_.sigev_notify = SIGEV_NONE;
 
     return ocb;
 }

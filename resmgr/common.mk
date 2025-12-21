@@ -18,7 +18,7 @@ EXTRA_SUFFIXES+=cxx cpp
 NAME=canrmd
 
 #===== CXXFLAGS - add the flags to the C compiler command line.
-CXXFLAGS+=-Wc,-std=gnu++14
+CXXFLAGS+=-Wc,-std=gnu++14 -Wc,-fpermissive
 
 #===== LIBS - a space-separated list of library items to be included in the link.
 LIBS+=m pci slog2

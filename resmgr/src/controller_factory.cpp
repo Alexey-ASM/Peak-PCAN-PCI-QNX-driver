@@ -98,8 +98,11 @@ std::shared_ptr<CanController>ControllerFactory::CreateController(const unsigned
 void ControllerFactory::InterruptHandleTh()
 {
     ThreadCtl (_NTO_TCTL_IO, NULL);
+
+#if __QNX__ < 800
     ThreadCtl (_NTO_TCTL_LOW_LATENCY, NULL );
-    
+#endif
+
     pthread_setschedprio(pthread_self(), 30);
 
     while(1)

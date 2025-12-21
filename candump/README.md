@@ -12,6 +12,7 @@ QNX CAN dump utility for CAN bus interface cards.
 - Compatible with:
   - QNX 7.0
   - QNX 7.1
+  - QNX 8.0
 - Supports multiple architectures:
   - x86_64
   - ARM
@@ -23,7 +24,7 @@ QNX CAN dump utility for CAN bus interface cards.
 |-------------|-------------------------|
 | QNX 7.0     | x86_64, ARM, ARM_64     |
 | QNX 7.1     | x86_64, ARM, ARM_64     |
-
+| QNX 8.0     | x86_64, ARM_64          |
 
 ## Usage
 
@@ -78,7 +79,7 @@ Without any given filter all data frames are received ('0:0' default filter).
 
 ## Notes
 
-- Tested on QNX 7.0 and 7.1 with x86 and ARM platforms
+- Tested on QNX 7.0, 7.1 and 8.0 with x86 platforms
 
 ## Known issues
 

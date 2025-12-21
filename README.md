@@ -6,7 +6,7 @@ QNX resource manager for PEAK-System PCAN-PCI CAN bus interface cards.
 
 This project provides a native QNX resource manager implementation for **PEAK PCAN-PCI** devices, enabling real-time CAN communication in embedded systems running **QNX Neutrino RTOS**.
 
-The CAN frame format is defined in [can.h](common/include/can.h), based on the Linux SocketCAN specification (https://github.com/torvalds/linux/blob/master/include/uapi/linux/can.h):
+The CAN frame format is defined in [can.h](include/can.h), based on the Linux SocketCAN specification (https://github.com/torvalds/linux/blob/master/include/uapi/linux/can.h):
 
 ```c
 /*
@@ -20,11 +20,11 @@ The CAN frame format is defined in [can.h](common/include/can.h), based on the L
 
 struct can_frame {
     canid_t can_id;   /* 32-bit CAN_ID + EFF/RTR/ERR flags */
-    __u8    len;      /* Data Length Code (0..8) */
-    __u8    __pad;    /* padding */
-    __u8    __res0;   /* reserved / padding */
-    __u8    len8_dlc; /* optional DLC for 8-byte payload length (9..15) */
-    __u8    data[CAN_MAX_DLEN] __attribute__((aligned(8)));
+   uint8_t    len;      /* Data Length Code (0..8) */
+   uint8_t    __pad;    /* padding */
+   uint8_t    __res0;   /* reserved / padding */
+   uint8_t    len8_dlc; /* optional DLC for 8-byte payload length (9..15) */
+   uint8_t    data[CAN_MAX_DLEN] __attribute__((aligned(8)));
 };
 ```
 
@@ -36,6 +36,7 @@ includes **cansend** and **candump** utilities similar to Linux can utils.
 - Compatible with:
   - QNX 7.0
   - QNX 7.1
+  - QNX 8.0
 - Supports multiple architectures:
   - x86_64
   - ARM
@@ -48,13 +49,14 @@ includes **cansend** and **candump** utilities similar to Linux can utils.
 |-------------|-------------------------|
 | QNX 7.0     | x86_64, ARM, ARM_64     |
 | QNX 7.1     | x86_64, ARM, ARM_64     |
+| QNX 8.0     | x86_64, ARM_64          |
 
 ## Project Structure
 
 ```
 ├── candump/   # Utility to dump CAN messages
 ├── cansend/   # Utility to send CAN messages
-├── common/    # Shared files
+├── include/    # Shared files
 ├── resmgr/    # Peak CAN resource manager (driver)
 ├── README.md  # Documentation
 ├── LICENSE    # License file
@@ -66,6 +68,15 @@ includes **cansend** and **candump** utilities similar to Linux can utils.
 ## Build
 
 ready to build as QNX projects with project files or Boost build
+
+### Build command line
+
+Build using your target SDP
+Set the environment variables for the appropriate QNX SDP version:
+**Windows:** Run the qnxsdp_ver-env.bat script.
+**Linux:** Source the qnxsdp_ver-env.sh script.
+
+In the Project's root directory, type make. This command build all binaries for all target platforms.
 
 ## Usage
 
@@ -90,11 +101,11 @@ Possible speeds: 10, 20, 50, 100, 125, 250, 500, 800, 1000
 ## Notes
 
 - Requires PEAK PCAN-PCI hardware
-- Tested on QNX 7.0 and 7.1 with x86 and ARM platforms
+- Tested on QNX 7.0, 7.1 and 8.0 with x86 platforms
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the GPL-3.0 License. See [LICENSE](LICENSE) for details.
 
 ## Contributing
 

@@ -29,12 +29,22 @@ struct CanExtendedOCB
 
     CanMessageFilter canMessageFilter_;
 
+    // union
+    // {
+    //     struct sigevent ev;
+    //     struct __sigevent32 ev32;
+    //       struct __sigevent64 ev64;
+    // };
+#if __QNX__ < 800
     union
     {
-        struct sigevent ev;
-        struct __sigevent32 ev32;
-        struct __sigevent64 ev64;
-    } notifyEvent_;
+        struct sigevent event_;
+        struct __sigevent32 event32_;
+        struct __sigevent64 event64_;
+    };
+#else
+    struct sigevent event_;
+#endif
 
 };
 

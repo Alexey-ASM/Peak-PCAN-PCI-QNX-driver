@@ -10,7 +10,7 @@
 
 //==============================================================================
 
-enum ECanResMgr_DCMD
+enum ECanResMgr_DCMD : uint32_t
 {
     EDCMD_UNDEFINED     = 0,
     EDCMD_SET_MASK      = 1 + _POSIX_DEVDIR_TO,
